@@ -1,8 +1,9 @@
-from qiskit import QuantumCircuit
+from qiskit import QuantumCircuit, BasicAer, execute
+from qiskit.visualization import plot_bloch_multivector
 
-circ = QuantumCircuit(15)
+circ = QuantumCircuit(10,10)
 
-for idx in range(15):
+for idx in range(10):
    circ.h(idx)
 
 
@@ -12,3 +13,6 @@ print(circ.width())
 print(circ.depth())
 
 
+backend = BasicAer.get_backend('statevector_simulator')
+job = execute(circ, backend).result()
+plot_bloch_multivector(job.get_statevector(), title="New Bloch Multivector")
